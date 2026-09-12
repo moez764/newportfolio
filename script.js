@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Initial Content State
+  // Initial Content Data
   const defaultData = {
     profile: {
       name: "Mahmoud Ahmed Mobarak",
@@ -35,41 +35,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Render Page Content
   function render() {
-    document.getElementById('dyn-headline').innerText = data.profile.title;
-    document.getElementById('dyn-bio').innerText = data.profile.bio;
-    
+    const headline = document.getElementById('dyn-headline');
+    const bio = document.getElementById('dyn-bio');
     const emailLink = document.getElementById('dyn-email-link');
-    emailLink.innerText = data.profile.email;
-    emailLink.href = `mailto:${data.profile.email}`;
+
+    if (headline) headline.innerText = data.profile.title;
+    if (bio) bio.innerText = data.profile.bio;
+    if (emailLink) {
+      emailLink.innerText = data.profile.email;
+      emailLink.href = `mailto:${data.profile.email}`;
+    }
 
     // Render Skills
-    document.getElementById('skills-grid').innerHTML = data.skills.map(s => `
-      <div class="skill-pill">
-        <span>[${s.category}]</span>
-        <strong>${s.name}</strong>
-      </div>
-    `).join('');
+    const skillsGrid = document.getElementById('skills-grid');
+    if (skillsGrid) {
+      skillsGrid.innerHTML = data.skills.map(s => `
+        <div class="skill-pill">
+          <span>[${s.category}]</span>
+          <strong>${s.name}</strong>
+        </div>
+      `).join('');
+    }
 
     // Render Certifications
-    document.getElementById('cert-grid').innerHTML = data.certifications.map(c => `
-      <div class="grid-card">
-        <h3>${c.title}</h3>
-        <p>${c.issuer}</p>
-      </div>
-    `).join('');
+    const certGrid = document.getElementById('cert-grid');
+    if (certGrid) {
+      certGrid.innerHTML = data.certifications.map(c => `
+        <div class="grid-card">
+          <h3>${c.title}</h3>
+          <p>${c.issuer}</p>
+        </div>
+      `).join('');
+    }
 
     // Render Projects
-    document.getElementById('projects-grid').innerHTML = data.projects.map(p => `
-      <div class="grid-card">
-        <h3>${p.title}</h3>
-        <p>${p.desc}</p>
-      </div>
-    `).join('');
+    const projectsGrid = document.getElementById('projects-grid');
+    if (projectsGrid) {
+      projectsGrid.innerHTML = data.projects.map(p => `
+        <div class="grid-card">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+        </div>
+      `).join('');
+    }
   }
 
   render();
 
-  // Flip-Book Logic
+  // Flip-Book Interactive Controls
   let currentPage = 1;
   const totalPages = 3;
 
@@ -82,17 +95,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      updatePages();
-    }
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePages();
+      }
+    });
+  }
 
-  nextBtn.addEventListener('click', () => {
-    if (currentPage < totalPages) {
-      currentPage++;
-      updatePages();
-    }
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePages();
+      }
+    });
+  }
 });
