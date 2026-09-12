@@ -1,4 +1,4 @@
-// Dynamic Application State & Default Data Store
+// Dynamic Application State
 const DEFAULT_AWARDS_DATA = [
   {
     id: '1',
@@ -50,16 +50,31 @@ let appState = {
   awards: [...DEFAULT_AWARDS_DATA]
 };
 
-// 150 BPM Beat Timings (Kidwild - Redemption)
-// 150 BPM = 0.4s per beat. Measure (4 beats) = 1.6s. 3-measure phrase = 4.8s.
-const BPM = 150;
-const BEAT_INTERVAL_MS = (60 / BPM) * 1000; // 400ms per beat
-const CARD_CHANGE_EVERY_BEATS = 12; // 4.8 seconds per card (Exact tempo match)
+/* 
+  EXACT AUDIO TIMESTAMP MAPPING (Extended Intro Audio File)
+  - 0.00s - 12.85s : Arabic Sample Intro / Thruster Overlay
+  - 12.85s         : Main Drop 💥 ("In this life...") -> Slide 1
+  - 19.29s         : 2nd Phrase -> Slide 2
+  - 25.73s         : 3rd Phrase -> Slide 3
+  - 32.17s         : 4th Phrase -> Slide 4
+  - 38.61s         : 5th Phrase -> Slide 5
+  - 45.05s         : 6th Phrase -> Slide 6
+  - 51.49s         : Outro / Transition to Main Portfolio
+*/
+const OFFSET_SECONDS = 0.0; 
 
-let audioCtx, analyser, dataArray;
-let beatTimer = null;
-let currentMontageIndex = 0;
-let isMontageRunning = false;
+const TIMESTAMPS = [
+  12.85,  // Drop 💥 ("In this life...")
+  19.29,  // Card 2
+  25.73,  // Card 3
+  32.17,  // Card 4
+  38.61,  // Card 5
+  45.05,  // Card 6
+  51.49   // End Montage -> Transition to Portfolio
+];
+
+let currentCardIndex = -1;
+let animFrameId = null;
 
 // DOM Elements
 const audio = document.getElementById('redemption-audio');
@@ -80,11 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadSavedState() {
   const saved = localStorage.getItem('flight_deck_portfolio_data');
   if (saved) {
-    try {
-      appState = JSON.parse(saved);
-    } catch(e) {
-      console.error("Failed to parse saved state", e);
-    }
+    try { appState = JSON.parse(saved); } catch(e) {}
   }
 }
 
@@ -93,13 +104,10 @@ function saveState() {
   renderHomepageContent();
 }
 
-// RENDER SYSTEM CONTENT
 function renderHomepageContent() {
-  // Update Profile
   document.getElementById('about-name-display').innerText = appState.profileTitle;
   document.getElementById('about-bio-display').innerText = appState.profileBio;
 
-  // Render "6 Awards, 1 Day" Section
   const awardsContainer = document.getElementById('awards-6-container');
   awardsContainer.innerHTML = appState.awards.map(award => `
     <div class="award-card-item">
@@ -114,7 +122,6 @@ function renderHomepageContent() {
     </div>
   `).join('');
 
-  // Render STEM Projects
   const stemContainer = document.getElementById('stem-projects-container');
   stemContainer.innerHTML = `
     <div class="award-card-item">
@@ -139,30 +146,27 @@ function renderHomepageContent() {
     </div>
   `;
 
-  // Render Montage Layout dynamically based on current awards
   montageContainer.innerHTML = appState.awards.map((item, i) => `
     <div class="montage-card ${i === 0 ? 'active' : ''}" id="montage-slide-${i}">
       <div class="montage-media">
         <img src="${item.img}" alt="${item.title}">
       </div>
       <div class="montage-details">
-        <div class="hud-tag">ACHIEVEMENT ${String(i + 1).padStart(2, '0')} // 06</div>
+        <div class="hud-tag">ACHIEVEMENT ${String(i + 1).padStart(2, '0')} // ${String(appState.awards.length).padStart(2, '0')}</div>
         <h2 class="montage-title">${item.title}</h2>
         <p class="montage-desc">${item.desc}</p>
       </div>
     </div>
   `).join('');
 
-  // Admin list setup
   renderAdminList();
 }
 
 function setupEventListeners() {
-  document.getElementById('takeoff-btn').addEventListener('click', () => startTakeoffSequence(true));
+  document.getElementById('takeoff-btn').addEventListener('click', startAudioSyncEngine);
   document.getElementById('skip-intro-btn').addEventListener('click', skipToHomepage);
   document.getElementById('exit-montage-btn').addEventListener('click', endMontageToHomepage);
 
-  // Admin Panel triggers
   document.getElementById('open-admin-btn').addEventListener('click', () => {
     document.getElementById('input-profile-title').value = appState.profileTitle;
     document.getElementById('input-profile-bio').value = appState.profileBio;
@@ -189,111 +193,101 @@ function setupEventListeners() {
   });
 }
 
-// BEAT-MATCHED MONTAGE ENGINE
-async function startTakeoffSequence(withAudio = true) {
-  if (withAudio) {
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!audioCtx) audioCtx = new AudioContext();
-      if (audioCtx.state === 'suspended') await audioCtx.resume();
-
-      const source = audioCtx.createMediaElementSource(audio);
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 64;
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-      dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-      audio.play().catch(e => console.warn("Audio play blocked", e));
-    } catch (e) {
-      console.warn("Audio context bypass engaged", e);
-    }
-  }
-
+// EXACT AUDIO TIME HARD-SYNC ENGINE
+function startAudioSyncEngine() {
   introScreen.style.opacity = '0';
+  
   setTimeout(() => {
     introScreen.style.display = 'none';
     launchAnimScreen.style.display = 'flex';
-    setTimeout(() => { launchAnimScreen.style.opacity = '1'; }, 50);
+    launchAnimScreen.style.opacity = '1';
 
-    // Sync transition exactly on beat drop at 4.8 seconds
-    setTimeout(() => {
+    // Start Playback
+    audio.currentTime = 0;
+    audio.play().catch(e => console.warn("Playback error:", e));
+
+    // Continuous high-precision loop
+    syncLoop();
+  }, 400);
+}
+
+function syncLoop() {
+  const currentTime = audio.currentTime - OFFSET_SECONDS;
+
+  // 1. Thruster launch animation plays during extended sample intro (0s -> 12.85s)
+  if (currentTime < TIMESTAMPS[0]) {
+    launchAnimScreen.style.display = 'flex';
+    montageScreen.style.display = 'none';
+  } 
+  // 2. Main Montage Cards Trigger
+  else if (currentTime >= TIMESTAMPS[0] && currentTime < TIMESTAMPS[TIMESTAMPS.length - 1]) {
+    if (launchAnimScreen.style.display !== 'none') {
       launchAnimScreen.style.opacity = '0';
-      setTimeout(() => {
-        launchAnimScreen.style.display = 'none';
-        montageScreen.style.display = 'flex';
-        runBeatSyncedMontage();
-      }, 400);
-    }, 4800);
-  }, 600);
-}
+      setTimeout(() => { launchAnimScreen.style.display = 'none'; }, 200);
+      montageScreen.style.display = 'flex';
+      montageScreen.style.opacity = '1';
+    }
 
-function runBeatSyncedMontage() {
-  isMontageRunning = true;
-  currentMontageIndex = 0;
-  showMontageSlide(0);
-
-  let beatCounter = 0;
-
-  // Continuous 150 BPM pulse clock (Every 400ms)
-  beatTimer = setInterval(() => {
-    if (!isMontageRunning) return;
-
-    beatCounter++;
-
-    // Pulse card border on every 4th beat (Every measure)
-    if (beatCounter % 4 === 0) {
-      const currentCard = document.getElementById(`montage-slide-${currentMontageIndex}`);
-      if (currentCard) {
-        currentCard.classList.add('beat-pulse');
-        setTimeout(() => currentCard.classList.remove('beat-pulse'), 200);
+    // Identify active slide based on current timestamp
+    let targetIndex = 0;
+    for (let i = 0; i < TIMESTAMPS.length - 1; i++) {
+      if (currentTime >= TIMESTAMPS[i]) {
+        targetIndex = i;
       }
     }
 
-    // Advance slide every 12 beats (~4.8 seconds, precisely matched to phrase boundary)
-    if (beatCounter % CARD_CHANGE_EVERY_BEATS === 0) {
-      currentMontageIndex++;
-      if (currentMontageIndex < appState.awards.length) {
-        showMontageSlide(currentMontageIndex);
-      } else {
-        endMontageToHomepage();
-      }
+    targetIndex = targetIndex % appState.awards.length;
+
+    if (targetIndex !== currentCardIndex) {
+      currentCardIndex = targetIndex;
+      showCard(currentCardIndex);
     }
-  }, BEAT_INTERVAL_MS);
+  } 
+  // 3. Audio reached montage end time -> transition to main portfolio
+  else if (currentTime >= TIMESTAMPS[TIMESTAMPS.length - 1]) {
+    endMontageToHomepage();
+    return;
+  }
+
+  animFrameId = requestAnimationFrame(syncLoop);
 }
 
-function showMontageSlide(index) {
-  document.querySelectorAll('.montage-card').forEach(c => c.classList.remove('active'));
+function showCard(index) {
+  document.querySelectorAll('.montage-card').forEach(c => c.classList.remove('active', 'beat-pulse'));
   const card = document.getElementById(`montage-slide-${index}`);
-  if (card) card.classList.add('active');
+  if (card) {
+    card.classList.add('active');
+    card.classList.add('beat-pulse');
+    setTimeout(() => card.classList.remove('beat-pulse'), 300);
+  }
   montageCounter.innerText = `BEAT SYNC ACTIVE // ${index + 1}/${appState.awards.length}`;
 }
 
 function endMontageToHomepage() {
-  isMontageRunning = false;
-  if (beatTimer) clearInterval(beatTimer);
+  if (animFrameId) cancelAnimationFrame(animFrameId);
 
-  // Fade Audio
   let fade = setInterval(() => {
     if (audio.volume > 0.05) audio.volume -= 0.05;
     else { audio.volume = 0; audio.pause(); clearInterval(fade); }
-  }, 80);
+  }, 60);
 
   montageScreen.style.opacity = '0';
   setTimeout(() => {
     montageScreen.style.display = 'none';
     mainContent.style.opacity = '1';
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 600);
+  }, 500);
 }
 
 function skipToHomepage() {
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  audio.pause();
   introScreen.style.display = 'none';
   montageScreen.style.display = 'none';
+  launchAnimScreen.style.display = 'none';
   mainContent.style.opacity = '1';
 }
 
-// ADMIN PANEL OPERATIONS
 function addAwardFromAdmin() {
   const title = document.getElementById('input-award-title').value;
   const tag = document.getElementById('input-award-tag').value || 'HONOR';
