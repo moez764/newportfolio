@@ -24,7 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Background HUD Grid */
 .hud-grid {
   position: fixed;
   inset: 0;
@@ -82,7 +81,6 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* === APPLE STYLE BUTTON === */
 .apple-takeoff-btn {
   position: relative;
   background: var(--apple-btn-bg);
@@ -122,7 +120,7 @@ body {
   transform: translateX(3px) translateY(-3px);
 }
 
-/* === INTRO WARP SPEED ANIMATION === */
+/* === LAUNCH WARP SPEED ANIMATION === */
 #launch-animation-screen {
   position: fixed;
   inset: 0;
