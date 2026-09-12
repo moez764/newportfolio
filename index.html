@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Deck | Portfolio</title>
+  <!-- Orbitron Font for Futuristic HUD styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background HUD Grid -->
+  <div class="hud-grid"></div>
+
+  <!-- INTRO SCREEN -->
+  <div id="intro-screen">
+    <div class="hud-pulse-ring" id="pulse-ring"></div>
+    <button class="takeoff-btn" onclick="initAudioAndTakeoff()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
+      </svg>
+      Take Off
+    </button>
+  </div>
+
+  <!-- MONTAGE OVERLAY (BEAT MATCHED TO REDEMPTION - KIDWILD) -->
+  <div id="montage-screen">
+    <div class="montage-card" id="slide-0">
+      <div class="hud-tag">// ACHIEVEMENTS_LOG_01</div>
+      <div class="montage-title">Principal's Distinction</div>
+      <div class="montage-desc">Recognized for top academic standing, leadership, and student initiative.</div>
+    </div>
+    <div class="montage-card" id="slide-1">
+      <div class="hud-tag">// ACHIEVEMENTS_LOG_02</div>
+      <div class="montage-title">GEMS Core Value Award</div>
+      <div class="montage-desc">Honored for exemplary innovation, global perspective, and excellence.</div>
+    </div>
+    <div class="montage-card" id="slide-2">
+      <div class="hud-tag">// ACHIEVEMENTS_LOG_03</div>
+      <div class="montage-title">General Proficiency & CAT4</div>
+      <div class="montage-desc">High cognitive mastery in computational reasoning, spatial logic, and quantitative analysis.</div>
+    </div>
+    <div class="montage-card" id="slide-3">
+      <div class="hud-tag">// ACHIEVEMENTS_LOG_04</div>
+      <div class="montage-title">GEMS Genius Scholarship</div>
+      <div class="montage-desc">Selected candidate for advanced STEM research, science expos, and distinction programs.</div>
+    </div>
+  </div>
+
+  <!-- MAIN PORTFOLIO CONTENT -->
+  <div id="main-content">
+    <header>
+      <h1>PILOT PROFILE // ACHIEVEMENTS</h1>
+      <div class="sys-status">SYS_STATUS: ONLINE</div>
+    </header>
+
+    <h2 class="section-title">Academic Distinctions</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-badge">AWARD / 01</div>
+        <h3>Principal's Award</h3>
+        <p>Highest institutional honor for academic success, discipline, and peer leadership.</p>
+      </div>
+      <div class="card">
+        <div class="card-badge">AWARD / 02</div>
+        <h3>GEMS Core Value Award</h3>
+        <p>Celebrates integrity, leadership, global citizenship, and innovative thinking.</p>
+      </div>
+      <div class="card">
+        <div class="card-badge">AWARD / 03</div>
+        <h3>Progress & CAT4 Awards</h3>
+        <p>Outstanding performance metrics across logic, spatial awareness, and cognitive skills.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Specialized Research & STEM</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-badge">RESEARCH / STEM</div>
+        <h3>Mathematics & Physics Focus</h3>
+        <p>Advanced studies in wave mechanics, electrolysis dynamics, quadratic modeling, and kinetic theory.</p>
+      </div>
+      <div class="card">
+        <div class="card-badge">RESEARCH / SPECIES</div>
+        <h3>Arabian Oryx Conservation</h3>
+        <p>Digital StoryMap project covering captive breeding, habitat preservation, and biological adaptations.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIO ELEMENT -->
+  <audio id="redemption-audio" src="redemption.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
