@@ -4,94 +4,169 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flight Deck | Portfolio</title>
-  <!-- Orbitron Font for Futuristic HUD styling -->
+  <!-- Clean typography: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Background HUD Grid -->
   <div class="hud-grid"></div>
 
   <!-- INTRO SCREEN -->
   <div id="intro-screen">
-    <div class="hud-pulse-ring" id="pulse-ring"></div>
-    <button class="takeoff-btn" onclick="initAudioAndTakeoff()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
-      </svg>
-      Take Off
-    </button>
+    <div class="runway-lights" id="runway"></div>
+    <div class="intro-content">
+      <div class="launch-badge">FLIGHT PROFILE 2026</div>
+      <h1 class="hero-title">Aviation & Academic Portfolio</h1>
+      
+      <!-- Apple-style Glassmorphism Button -->
+      <button class="apple-takeoff-btn" onclick="initTakeoffSequence()">
+        <span class="btn-glow"></span>
+        <svg class="plane-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
+        </svg>
+        <span>Take Off</span>
+      </button>
+    </div>
   </div>
 
-  <!-- MONTAGE OVERLAY (BEAT MATCHED TO REDEMPTION - KIDWILD) -->
+  <!-- LAUNCH ANIMATION OVERLAY -->
+  <div id="launch-animation-screen">
+    <div class="warp-speed-lines"></div>
+    <div class="launch-hud-status">
+      <span class="status-indicator"></span>
+      <span id="launch-text">THRUSTERS ENGAGED // ASCENDING TO 35,000 FT</span>
+    </div>
+  </div>
+
+  <!-- MONTAGE SCREEN WITH PHOTO PLACEHOLDERS -->
   <div id="montage-screen">
     <div class="montage-card" id="slide-0">
-      <div class="hud-tag">// ACHIEVEMENTS_LOG_01</div>
-      <div class="montage-title">Principal's Distinction</div>
-      <div class="montage-desc">Recognized for top academic standing, leadership, and student initiative.</div>
+      <div class="slide-media">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Principal Award Placeholder" class="placeholder-img">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="slide-details">
+        <div class="hud-tag">ACHIEVEMENT_01</div>
+        <h2 class="montage-title">Principal's Distinction</h2>
+        <p class="montage-desc">Recognized for top academic standing, peer leadership, and initiative across core disciplines.</p>
+      </div>
     </div>
+
     <div class="montage-card" id="slide-1">
-      <div class="hud-tag">// ACHIEVEMENTS_LOG_02</div>
-      <div class="montage-title">GEMS Core Value Award</div>
-      <div class="montage-desc">Honored for exemplary innovation, global perspective, and excellence.</div>
+      <div class="slide-media">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80" alt="GEMS Award Placeholder" class="placeholder-img">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="slide-details">
+        <div class="hud-tag">ACHIEVEMENT_02</div>
+        <h2 class="montage-title">GEMS Core Value Award</h2>
+        <p class="montage-desc">Honored for exemplary innovation, global citizenship, and educational commitment.</p>
+      </div>
     </div>
+
     <div class="montage-card" id="slide-2">
-      <div class="hud-tag">// ACHIEVEMENTS_LOG_03</div>
-      <div class="montage-title">General Proficiency & CAT4</div>
-      <div class="montage-desc">High cognitive mastery in computational reasoning, spatial logic, and quantitative analysis.</div>
+      <div class="slide-media">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80" alt="STEM Mathematics Placeholder" class="placeholder-img">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="slide-details">
+        <div class="hud-tag">ACHIEVEMENT_03</div>
+        <h2 class="montage-title">General Proficiency & CAT4</h2>
+        <p class="montage-desc">High cognitive mastery in computational reasoning, spatial logic, and quantitative analysis.</p>
+      </div>
     </div>
+
     <div class="montage-card" id="slide-3">
-      <div class="hud-tag">// ACHIEVEMENTS_LOG_04</div>
-      <div class="montage-title">GEMS Genius Scholarship</div>
-      <div class="montage-desc">Selected candidate for advanced STEM research, science expos, and distinction programs.</div>
+      <div class="slide-media">
+        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80" alt="Scholarship Placeholder" class="placeholder-img">
+        <div class="image-overlay"></div>
+      </div>
+      <div class="slide-details">
+        <div class="hud-tag">ACHIEVEMENT_04</div>
+        <h2 class="montage-title">GEMS Genius Scholarship</h2>
+        <p class="montage-desc">Selected candidate for advanced STEM research, science expos, and distinction programs.</p>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN PORTFOLIO CONTENT -->
+  <!-- MAIN PORTFOLIO -->
   <div id="main-content">
     <header>
-      <h1>PILOT PROFILE // ACHIEVEMENTS</h1>
-      <div class="sys-status">SYS_STATUS: ONLINE</div>
+      <div class="header-left">
+        <span class="system-chip">FLIGHT PROFILE // 2026</span>
+        <h1>Academic Achievements</h1>
+      </div>
+      <div class="flight-metrics">
+        <div><span class="label">ALTITUDE</span><span class="val">35,000 FT</span></div>
+        <div><span class="label">STATUS</span><span class="val active">CRUISING</span></div>
+      </div>
     </header>
 
-    <h2 class="section-title">Academic Distinctions</h2>
+    <h2 class="section-title">Academic Honors & Distinctions</h2>
     <div class="grid">
       <div class="card">
-        <div class="card-badge">AWARD / 01</div>
-        <h3>Principal's Award</h3>
-        <p>Highest institutional honor for academic success, discipline, and peer leadership.</p>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Principal Award">
+        </div>
+        <div class="card-body">
+          <div class="card-badge">HONOR / 01</div>
+          <h3>Principal's Award</h3>
+          <p>Highest institutional honor for scholarly success, discipline, and peer leadership.</p>
+        </div>
       </div>
+
       <div class="card">
-        <div class="card-badge">AWARD / 02</div>
-        <h3>GEMS Core Value Award</h3>
-        <p>Celebrates integrity, leadership, global citizenship, and innovative thinking.</p>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="GEMS Award">
+        </div>
+        <div class="card-body">
+          <div class="card-badge">HONOR / 02</div>
+          <h3>GEMS Core Value Award</h3>
+          <p>Celebrates integrity, leadership, global citizenship, and innovative thinking.</p>
+        </div>
       </div>
+
       <div class="card">
-        <div class="card-badge">AWARD / 03</div>
-        <h3>Progress & CAT4 Awards</h3>
-        <p>Outstanding performance metrics across logic, spatial awareness, and cognitive skills.</p>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" alt="CAT4 Award">
+        </div>
+        <div class="card-body">
+          <div class="card-badge">HONOR / 03</div>
+          <h3>Progress & CAT4 Awards</h3>
+          <p>Outstanding performance metrics across logic, spatial awareness, and cognitive skills.</p>
+        </div>
       </div>
     </div>
 
-    <h2 class="section-title">Specialized Research & STEM</h2>
+    <h2 class="section-title">Specialized Research & Projects</h2>
     <div class="grid">
       <div class="card">
-        <div class="card-badge">RESEARCH / STEM</div>
-        <h3>Mathematics & Physics Focus</h3>
-        <p>Advanced studies in wave mechanics, electrolysis dynamics, quadratic modeling, and kinetic theory.</p>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="Mathematics Research">
+        </div>
+        <div class="card-body">
+          <div class="card-badge">FIELD / STEM</div>
+          <h3>Mathematics & Physics Focus</h3>
+          <p>Advanced studies in wave mechanics, electrolysis dynamics, quadratic modeling, and kinetic theory.</p>
+        </div>
       </div>
+
       <div class="card">
-        <div class="card-badge">RESEARCH / SPECIES</div>
-        <h3>Arabian Oryx Conservation</h3>
-        <p>Digital StoryMap project covering captive breeding, habitat preservation, and biological adaptations.</p>
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Conservation Project">
+        </div>
+        <div class="card-body">
+          <div class="card-badge">FIELD / CONSERVATION</div>
+          <h3>Arabian Oryx Conservation</h3>
+          <p>Digital StoryMap research covering captive breeding, habitat preservation, and biological adaptations.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- AUDIO ELEMENT -->
   <audio id="redemption-audio" src="redemption.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
