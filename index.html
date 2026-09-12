@@ -2,199 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Flight Profile | Portfolio & Control Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Deck // Executive STEM & Academic Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- GLOBAL HUD BACKGROUND -->
-  <div class="hud-grid"></div>
+  <!-- Audio Element -->
+  <audio id="redemption-audio" preload="auto">
+    <source src="redemption.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- INTRO SCREEN -->
-  <div id="intro-screen">
-    <div class="intro-content">
-      <div class="launch-badge">FLIGHT PROFILE // ACADEMIC 2026</div>
-      <h1 class="hero-title">Aviation & Academic Excellence</h1>
-      <div class="intro-actions">
-        <button class="apple-btn primary-btn" id="takeoff-btn">
-          <svg class="plane-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
-          </svg>
-          <span>Take Off (With Audio)</span>
-        </button>
-        <button class="apple-btn secondary-btn" id="skip-intro-btn">Skip directly to Homepage</button>
-      </div>
-    </div>
-  </div>
+  <!-- Ambient Dynamic Grid Background -->
+  <div class="bg-grid-overlay"></div>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
 
-  <!-- LAUNCH WARP OVERLAY -->
-  <div id="launch-animation-screen">
-    <div class="warp-speed-lines"></div>
-    <div class="launch-hud-status">
-      <span class="status-indicator"></span>
-      <span id="launch-text">THRUSTERS ENGAGED // SYNCING 150 BPM BEAT ENGINE</span>
-    </div>
-  </div>
-
-  <!-- MONTAGE SCREEN -->
-  <div id="montage-screen">
-    <div class="montage-top-bar">
-      <span class="hud-tag" id="montage-counter">BEAT SYNC ACTIVE // 1/6</span>
-      <button class="apple-btn micro-btn" id="exit-montage-btn">Skip Montage ✕</button>
-    </div>
-    <div id="montage-container">
-      <!-- Dynamic cards rendered from LocalStorage -->
-    </div>
-  </div>
-
-  <!-- MAIN HOMEPAGE -->
-  <div id="main-content">
-    
-    <!-- SYSTEM NAVIGATION BAR -->
-    <nav class="system-navbar">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <span class="brand-chip">FLIGHT DECK</span>
-          <span class="brand-title">Academic Portfolio</span>
-        </div>
-        <div class="nav-links">
-          <a href="#about-section" class="nav-item active">About Me</a>
-          <a href="#special-awards-section" class="nav-item">6 Awards, 1 Day</a>
-          <a href="#stem-section" class="nav-item">STEM & Research</a>
-          <a href="#gallery-section" class="nav-item">Media Gallery</a>
-        </div>
-        <button class="apple-btn admin-trigger-btn" id="open-admin-btn">
-          ⚙ System Admin
-        </button>
-      </div>
-    </nav>
-
-    <main class="content-wrapper">
+  <!-- 1. INTRO / START SCREEN -->
+  <div id="intro-screen" class="fullscreen-overlay">
+    <div class="intro-glass-card">
+      <div class="status-pill"><span class="pulse-dot"></span> AUDIO SYNC ENGINE READY</div>
+      <h1 class="hud-title">FLIGHT DECK</h1>
+      <p class="hud-subtitle">ACADEMIC & STEM ACHIEVEMENT MONTAGE</p>
       
-      <!-- HERO / ABOUT ME SECTION -->
-      <section id="about-section" class="hero-section">
-        <div class="profile-card">
-          <div class="profile-avatar-wrap">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Profile Photo" id="profile-photo-img">
-          </div>
-          <div class="profile-info">
-            <div class="hud-tag">WESTMINSTER SCHOOL // ACADEMIC PROFILE</div>
-            <h1 id="about-name-display">Academic Achiever & STEM Researcher</h1>
-            <p class="bio-text" id="about-bio-display">
-              Dedicated student focusing on secondary-level mathematics, physics wave dynamics, and biological conservation. Recipient of multiple institutional awards for outstanding general proficiency, spatial reasoning (CAT4), and peer leadership.
-            </p>
-            <div class="profile-stats">
-              <div class="stat-pill"><span class="stat-num">6</span> <span class="stat-lbl">Major Awards</span></div>
-              <div class="stat-pill"><span class="stat-num">CAT4</span> <span class="stat-lbl">High Distinction</span></div>
-              <div class="stat-pill"><span class="stat-num">STEM</span> <span class="stat-lbl">Exhibition Scholar</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6 AWARDS, 1 DAY SECTION -->
-      <section id="special-awards-section" class="portfolio-section">
-        <div class="section-header">
-          <div class="badge-highlight">SPECIAL HONORS</div>
-          <h2>6 Awards, 1 Day</h2>
-          <p class="section-desc">Historical achievement recognizing academic excellence, core values, and cognitive performance in a single honor ceremony.</p>
-        </div>
-        <div class="awards-grid-6" id="awards-6-container">
-          <!-- Populated dynamically by JS -->
-        </div>
-      </section>
-
-      <!-- STEM & RESEARCH SECTION -->
-      <section id="stem-section" class="portfolio-section">
-        <div class="section-header">
-          <h2>Specialized STEM & Conservation Projects</h2>
-          <p class="section-desc">Deep dives into applied physical sciences, mathematical modeling, and wildlife protection.</p>
-        </div>
-        <div class="grid-2col" id="stem-projects-container">
-          <!-- Populated dynamically by JS -->
-        </div>
-      </section>
-
-      <!-- MEDIA GALLERY SECTION -->
-      <section id="gallery-section" class="portfolio-section">
-        <div class="section-header">
-          <h2>Media & Certification Gallery</h2>
-          <p class="section-desc">Visual documentation of research exhibitions, trophy ceremonies, and badging events.</p>
-        </div>
-        <div class="gallery-grid" id="gallery-container">
-          <!-- Populated dynamically by JS -->
-        </div>
-      </section>
-
-    </main>
+      <div class="btn-group">
+        <button id="takeoff-btn" class="apple-btn glow-btn">
+          <span>INITIALIZE SEQUENCE</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button id="skip-intro-btn" class="apple-btn secondary-btn">Direct to Portfolio</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ADMIN CONTROL PANEL MODAL -->
-  <div id="admin-modal" class="modal-overlay">
-    <div class="admin-panel-container">
-      <div class="admin-header">
+  <!-- 2. THRUSTER LAUNCH SCREEN (EXTENDED INTRO 0s -> 12.26s) -->
+  <div id="launch-animation-screen" class="fullscreen-overlay" style="display: none;">
+    <div class="thruster-loader">
+      <div class="hud-ring">
+        <div class="ring-spinner"></div>
+        <div class="hud-core-icon">⚡</div>
+      </div>
+      <div class="launch-text-wrap">
+        <h2 class="launch-status">WARPING TO FREQUENCY</h2>
+        <p class="launch-sub">SYNCHRONIZING SUB-BEAT DROP // 12.26s</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. BEAT-SYNC MONTAGE SCREEN (12.26s -> 32.02s) -->
+  <div id="montage-screen" class="fullscreen-overlay" style="display: none;">
+    <div class="hud-top-bar">
+      <div class="hud-brand">FLIGHT DECK <span class="version-tag">v2.4</span></div>
+      <div id="montage-counter" class="hud-status-badge">BEAT SYNC ACTIVE // 01/06</div>
+      <button id="exit-montage-btn" class="apple-btn micro-btn secondary-btn">Exit Experience</button>
+    </div>
+
+    <div class="montage-stage">
+      <div id="montage-container" class="cards-wrapper">
+        <!-- Dynamic Cards Injected via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MAIN HOMEPAGE CONTENT -->
+  <main id="main-content">
+    <header class="app-nav">
+      <div class="nav-logo">FLIGHT DECK</div>
+      <div class="nav-actions">
+        <button id="open-admin-btn" class="apple-btn micro-btn secondary-btn">Manage Records</button>
+      </div>
+    </header>
+
+    <section class="profile-hero">
+      <div class="hero-badge">ACADEMIC & STEM PROFILE</div>
+      <h1 id="about-name-display">Academic Achiever & STEM Researcher</h1>
+      <p id="about-bio-display">Dedicated student focusing on secondary-level mathematics, physics wave dynamics, and biological conservation.</p>
+    </section>
+
+    <!-- Honors Section -->
+    <section class="content-section">
+      <div class="section-title-wrap">
         <div>
-          <h3>System Content Manager</h3>
-          <p>Customize intro montage, awards, about section, and projects dynamically.</p>
+          <span class="section-tag">DISTINCTIONS</span>
+          <h2 class="section-title">Institutional Honors</h2>
         </div>
-        <button class="close-btn" id="close-admin-btn">✕</button>
       </div>
-      
-      <div class="admin-body">
-        <form id="admin-form">
-          
-          <div class="admin-group">
-            <h4>1. Profile & About Me</h4>
-            <div class="form-row">
-              <label>Headline / Name</label>
-              <input type="text" id="input-profile-title">
-            </div>
-            <div class="form-row">
-              <label>Bio Summary</label>
-              <textarea id="input-profile-bio" rows="3"></textarea>
-            </div>
-          </div>
+      <div id="awards-6-container" class="grid-layout"></div>
+    </section>
 
-          <div class="admin-group">
-            <h4>2. Add / Edit "6 Awards, 1 Day" Showcase</h4>
-            <div class="form-row">
-              <label>Award Title</label>
-              <input type="text" id="input-award-title" placeholder="e.g. Principal's Award">
-            </div>
-            <div class="form-row">
-              <label>Category / Tag</label>
-              <input type="text" id="input-award-tag" placeholder="e.g. ACADEMIC EXCELLENCE">
-            </div>
-            <div class="form-row">
-              <label>Description</label>
-              <input type="text" id="input-award-desc" placeholder="Brief detail about the honor">
-            </div>
-            <div class="form-row">
-              <label>Image URL</label>
-              <input type="text" id="input-award-img" placeholder="https://images.unsplash.com/...">
-            </div>
-            <button type="button" class="apple-btn secondary-btn" id="add-award-btn">+ Add Award to Showcase</button>
-          </div>
-
-          <div class="admin-group">
-            <h4>3. Current 6-Awards Database</h4>
-            <div id="admin-awards-list" class="admin-item-list"></div>
-          </div>
-
-          <div class="admin-actions">
-            <button type="button" class="apple-btn secondary-btn" id="reset-default-btn">Reset Defaults</button>
-            <button type="submit" class="apple-btn primary-btn">Save System Changes</button>
-          </div>
-        </form>
+    <!-- STEM Research Section -->
+    <section class="content-section">
+      <div class="section-title-wrap">
+        <div>
+          <span class="section-tag">RESEARCH & INITIATIVES</span>
+          <h2 class="section-title">STEM Projects</h2>
+        </div>
       </div>
+      <div id="stem-projects-container" class="grid-layout"></div>
+    </section>
+  </main>
+
+  <!-- 5. ADMIN MODAL -->
+  <div id="admin-modal" class="modal-overlay">
+    <div class="admin-card">
+      <div class="admin-header">
+        <h2>Portfolio Control Center</h2>
+        <button id="close-admin-btn" class="close-btn">&times;</button>
+      </div>
+
+      <form id="admin-form">
+        <div class="form-group">
+          <label>Profile Headline</label>
+          <input type="text" id="input-profile-title" required>
+        </div>
+        <div class="form-group">
+          <label>Biography Summary</label>
+          <textarea id="input-profile-bio" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="apple-btn full-btn">Update Profile</button>
+      </form>
+
+      <hr class="divider">
+
+      <h3>Manage Achievements</h3>
+      <div id="admin-awards-list" class="admin-list"></div>
+
+      <div class="add-award-box">
+        <h4>Add Distinction</h4>
+        <div class="form-group"><input type="text" id="input-award-title" placeholder="Title"></div>
+        <div class="form-group"><input type="text" id="input-award-tag" placeholder="Category Tag (e.g. MATHEMATICS)"></div>
+        <div class="form-group"><textarea id="input-award-desc" placeholder="Description" rows="2"></textarea></div>
+        <div class="form-group"><input type="text" id="input-award-img" placeholder="Image URL"></div>
+        <button type="button" id="add-award-btn" class="apple-btn full-btn">Add Achievement</button>
+      </div>
+
+      <button type="button" id="reset-default-btn" class="danger-btn">Reset Defaults</button>
     </div>
   </div>
-
-  <audio id="redemption-audio" src="redemption.mp3" preload="auto" crossorigin="anonymous"></audio>
 
   <script src="script.js"></script>
 </body>
