@@ -3,233 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aviation-Tech Academic & STEM Portfolio</title>
+  <title>Portfolio — Clean & Minimal</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Background Animated Canvas Overlay -->
-  <div class="background-container"></div>
-
-  <!-- HUD Custom Scrollbar Tracker -->
-  <aside class="hud-scroll-tracker">
-    <div class="hud-alt-scale">
-      <div id="alt-indicator" class="alt-indicator">FLT 00</div>
+  <!-- Header Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">PORTFOLIO</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#projects">Projects</a>
+      </nav>
+      <a href="admin.html" class="nav-admin-btn">Admin Panel</a>
     </div>
-    <div class="hud-nav-dots">
-      <a href="#cockpit-landing" class="dot active" data-section="cockpit-landing" title="Landing Control"></a>
-      <a href="#about-me" class="dot" data-section="about-me" title="About Me"></a>
-      <a href="#skills" class="dot" data-section="skills" title="Skills & Matrix"></a>
-      <a href="#extracurriculars" class="dot" data-section="extracurriculars" title="Extra-Curriculars"></a>
-      <a href="#projects" class="dot" data-section="projects" title="Projects"></a>
-      <a href="#academics" class="dot" data-section="academics" title="Report Cards"></a>
-      <a href="#achievements" class="dot" data-section="achievements" title="Achievements"></a>
-      <a href="#certificates" class="dot" data-section="certificates" title="Certificates"></a>
-      <a href="#contact" class="dot" data-section="contact" title="Contact"></a>
-    </div>
-  </aside>
+  </header>
 
-  <!-- Flight HUD Control Drawer -->
-  <nav class="flight-hud-menu">
-    <div class="hud-header">SYSTEM ROUTING</div>
-    <ul>
-      <li><a href="#about-me">01 // ABOUT</a></li>
-      <li><a href="#skills">02 // SKILLS</a></li>
-      <li><a href="#extracurriculars">03 // INITIATIVES</a></li>
-      <li><a href="#projects">04 // PROJECTS</a></li>
-      <li><a href="#academics">05 // ACADEMICS</a></li>
-      <li><a href="#achievements">06 // HONORS</a></li>
-      <li><a href="#certificates">07 // CREDENTIALS</a></li>
-      <li><a href="#contact">08 // CONTACT</a></li>
-    </ul>
-    <a href="admin.html" target="_blank" class="admin-link-btn">OPEN ADMIN DASHBOARD</a>
-  </nav>
+  <main class="main-wrapper">
 
-  <!-- Main Scroll Container -->
-  <div class="viewport-wrapper">
-
-    <!-- SECTION 1: COCKPIT LANDING INTERACTIVE INTRO -->
-    <section id="cockpit-landing" class="portfolio-section cockpit-view">
-      <div class="cockpit-frame">
-        <div class="hud-overlay-text">
-          <span class="hud-tag">FLIGHT INSTRUMENT INTERACTION</span>
-          <h1>RUNWAY APPROACH TACTICAL LANDING</h1>
-          <p>Deploy landing gear and set throttle levels to zero to complete touchdown sequence.</p>
-        </div>
-
-        <div class="cockpit-controls">
-          <div class="control-box">
-            <span class="control-label">LANDING GEAR SWITCH</span>
-            <label class="switch">
-              <input class="chk" type="checkbox" id="gear-switch">
-              <span class="slider"></span>
-            </label>
-          </div>
-
-          <div class="control-box">
-            <span class="control-label">THROTTLE COMMAND</span>
-            <div class="slider-wrapper">
-              <input type="range" class="slider-input slider-gradient-1" id="throttle-slider" min="0" max="100" value="80">
-            </div>
-          </div>
-        </div>
-
-        <button id="land-plane-btn" class="animated-button">
-          <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-          </svg>
-          <span class="text">EXECUTE TOUCHDOWN</span>
-          <span class="circle"></span>
-          <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-          </svg>
-        </button>
-
-        <!-- Airpod Fallback Container -->
-        <div id="airpod-fallback" class="airpod-container hidden">
-          <p class="fallback-note">Bypassed HUD System — Standard Access Node Activated</p>
-          <div class="card" id="airpod-case">
-            <div class="lc cavity"></div>
-            <div class="lc line"></div>
-            <div class="led"></div>
-            <div class="text">AIRPODS ACCESS</div>
-          </div>
-        </div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-badge">✦ STEM & COMPUTER SCIENCE</div>
+      <h1 class="hero-title" id="dyn-name">High-Achieving Student & Tech Explorer</h1>
+      <p class="hero-subtitle" id="dyn-headline">
+        Driven by curiosity, discipline, and a commitment to combining creativity, technical mastery, and leadership.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
       </div>
     </section>
 
-    <!-- SECTION 2: ABOUT ME -->
-    <section id="about-me" class="portfolio-section">
-      <div class="section-card">
-        <span class="badge">BIOGRAPHY & CORE PROFILE</span>
-        <h2 id="about-title">Academic Achiever & STEM Researcher</h2>
-        <p id="about-bio" class="section-desc">
-          Dedicated researcher specializing in secondary-level physics, wave mechanics, and environmental sustainability projects. Focused on mathematical modeling, system design, and applied science innovation.
+    <!-- About Me Section -->
+    <section id="about" class="content-section">
+      <div class="section-header">
+        <span class="subtext">BACKGROUND</span>
+        <h2>About Me</h2>
+      </div>
+      <div class="glass-card bio-card">
+        <p id="dyn-bio">
+          I am passionate about learning, innovation, and academic excellence. Whether analyzing physics wave mechanics, practicing advanced mathematical reasoning, or building web platforms, I strive to turn complex concepts into functional, real-world solutions.
         </p>
       </div>
     </section>
 
-    <!-- SECTION 3: SKILLS -->
-    <section id="skills" class="portfolio-section">
-      <div class="section-card">
-        <span class="badge">TECHNICAL TOOLKIT</span>
-        <h2>Skills & Domain Tools</h2>
-        <div class="skills-matrix" id="skills-matrix-container">
-          <!-- Dynamic Skill Elements Injected via Script -->
-        </div>
+    <!-- Interactive 3D Journey Flip-Book -->
+    <section id="journey" class="content-section">
+      <div class="section-header">
+        <span class="subtext">INTERACTIVE EXPERIENCE</span>
+        <h2>My Journey & Values</h2>
       </div>
-    </section>
-
-    <!-- SECTION 4: EXTRA-CURRICULARS (WATER FILTER ANIMATION) -->
-    <section id="extracurriculars" class="portfolio-section">
-      <div class="section-card water-filter-card">
-        <span class="badge">ENVIRONMENTAL & CONSERVATION INITIATIVES</span>
-        <h2>Extra-Curricular Projects</h2>
-        
-        <!-- Water Filter Graphic Canvas Container -->
-        <div class="water-filter-stage">
-          <div class="filter-chamber">
-            <div class="water-droplet murky" id="water-drop"></div>
-            <div class="filter-layer layer-sand">SAND & CHARCOAL</div>
-            <div class="filter-layer layer-gravel">FINE GRAVEL</div>
-            <div class="filter-layer layer-membrane">MEMBRANE FILTER</div>
-            <div class="clean-reservoir" id="clean-reservoir">PURIFIED ECO-SYSTEM OUTPUT</div>
+      
+      <div class="flipbook-wrapper">
+        <div class="flipbook" id="flipbook">
+          <!-- Page 1 -->
+          <div class="page active" data-page="1">
+            <span class="page-num">01 / 03</span>
+            <h3>1. Responsibility</h3>
+            <p>More than participation — leadership through action. Taking accountability when it matters and raising standards across teams.</p>
           </div>
-          <button id="trigger-filter-btn" class="animated-button">
-            <span class="text">RUN FILTRATION PROCESS</span>
-            <span class="circle"></span>
-          </button>
-        </div>
-
-        <div class="initiative-content" id="extracurriculars-list">
-          <!-- Dynamic Content -->
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 5: PROJECTS (UNSCREWABLE ACCESS PANEL) -->
-    <section id="projects" class="portfolio-section">
-      <div class="panel-container" id="projects-panel">
-        <div class="panel-cover" id="panel-cover">
-          <div class="screw screw-tl" data-screw="1"></div>
-          <div class="screw screw-tr" data-screw="2"></div>
-          <div class="screw screw-bl" data-screw="3"></div>
-          <div class="screw screw-br" data-screw="4"></div>
-          <div class="cover-text">
-            <h3>SECURED TECHNICAL PROJECTS PANEL</h3>
-            <p>CLICK ALL 4 SCREWS TO UNBOLT COVER</p>
+          <!-- Page 2 -->
+          <div class="page" data-page="2">
+            <span class="page-num">02 / 03</span>
+            <h3>2. Empathy</h3>
+            <p>Listening actively to build trust. True leadership means ensuring every individual feels valued and heard.</p>
+          </div>
+          <!-- Page 3 -->
+          <div class="page" data-page="3">
+            <span class="page-num">03 / 03</span>
+            <h3>3. Service</h3>
+            <p>Giving back to elevate those around me. Leadership is not about being in charge, but taking care of those in your charge.</p>
           </div>
         </div>
-        <div class="panel-contents" id="projects-list">
-          <!-- Hidden Projects revealed after unscrewing -->
+        <div class="flipbook-controls">
+          <button id="prev-page" class="btn-sm">← Prev</button>
+          <button id="next-page" class="btn-sm">Next →</button>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 6: REPORT CARDS / ACADEMICS (CREDIT CARD WALLET) -->
-    <section id="academics" class="portfolio-section">
-      <div class="section-card">
-        <span class="badge">ACADEMIC RECORDS</span>
-        <h2>Interactive Report Card Wallet</h2>
-        <div class="wallet-container" id="wallet">
-          <div class="wallet-cover" id="wallet-toggle">
-            <span>EXPAND ACADEMIC WALLET</span>
-          </div>
-          <div class="wallet-cards" id="wallet-cards-container">
-            <!-- Dynamic Credit-Card Style Report Cards Injected -->
-          </div>
-        </div>
+    <!-- Skills Section -->
+    <section id="skills" class="content-section">
+      <div class="section-header">
+        <span class="subtext">COMPETENCIES</span>
+        <h2>Skills & Mastery</h2>
+      </div>
+      
+      <div class="skills-grid" id="skills-grid">
+        <!-- Dynamically populated -->
       </div>
     </section>
 
-    <!-- SECTION 7: ACHIEVEMENTS / AWARDS (WITH IMPACT METRICS) -->
-    <section id="achievements" class="portfolio-section">
-      <div class="section-card">
-        <span class="badge">HONORS & RECOGNITION</span>
-        <h2>Distinctions with Impact Assessment</h2>
-        <div class="achievements-grid" id="achievements-list">
-          <!-- Dynamic Content -->
-        </div>
+    <!-- Certifications Section -->
+    <section id="certifications" class="content-section">
+      <div class="section-header">
+        <span class="subtext">CREDENTIALS</span>
+        <h2>Technical Certifications</h2>
+      </div>
+      <div class="cards-grid" id="cert-grid">
+        <!-- Dynamically populated -->
       </div>
     </section>
 
-    <!-- SECTION 8: CERTIFICATES -->
-    <section id="certificates" class="portfolio-section">
-      <div class="section-card">
-        <span class="badge">VERIFIED CREDENTIALS</span>
-        <h2>Certificates & Accreditation</h2>
-        <div class="certificates-grid" id="certificates-list">
-          <!-- Dynamic Content -->
-        </div>
+    <!-- Projects Dashboard -->
+    <section id="projects" class="content-section">
+      <div class="section-header">
+        <span class="subtext">PORTFOLIO</span>
+        <h2>Featured Projects</h2>
+      </div>
+      <div class="cards-grid" id="projects-grid">
+        <!-- Dynamically populated -->
       </div>
     </section>
 
-    <!-- SECTION 9: CONTACT ME & TOP RETURN BUTTON -->
-    <section id="contact" class="portfolio-section">
-      <div class="section-card text-center">
-        <span class="badge">COMMUNICATION DIRECTORY</span>
-        <h2>Get In Touch</h2>
-        <p id="contact-email">contact@portfolio.domain</p>
-        
-        <div class="styled-wrapper" style="margin-top: 30px;">
-          <button class="button" id="back-to-top-btn" title="Back to Flight Deck Top">
-            <div class="button-box">
-              <span class="button-elem">
-                <svg viewBox="0 0 24 24" class="arrow-icon"><path fill="#ffffff" d="M12 4l-8 8 1.41 1.41L11 7.83V20h2V7.83l5.59 5.59L20 12z"></path></svg>
-              </span>
-              <span class="button-elem">
-                <svg viewBox="0 0 24 24" class="arrow-icon"><path fill="#ffffff" d="M12 4l-8 8 1.41 1.41L11 7.83V20h2V7.83l5.59 5.59L20 12z"></path></svg>
-              </span>
-            </div>
-          </button>
-        </div>
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+      <div class="glass-card contact-card">
+        <h2>Let's Connect</h2>
+        <p>Open for collaborative research, technical projects, and academic inquiries.</p>
+        <a id="dyn-email-link" href="#" class="email-btn">student@westminster.edu</a>
       </div>
     </section>
 
-  </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Academic Portfolio — Clean UI Architecture</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
