@@ -50,31 +50,32 @@ let appState = {
   awards: [...DEFAULT_AWARDS_DATA]
 };
 
-/* 
-  EXACT AUDIO TIMESTAMP MAPPING (Extended Intro Audio File)
-  - 0.00s - 12.85s : Arabic Sample Intro / Thruster Overlay
-  - 12.85s         : Main Drop 💥 ("In this life...") -> Slide 1
-  - 19.29s         : 2nd Phrase -> Slide 2
-  - 25.73s         : 3rd Phrase -> Slide 3
-  - 32.17s         : 4th Phrase -> Slide 4
-  - 38.61s         : 5th Phrase -> Slide 5
-  - 45.05s         : 6th Phrase -> Slide 6
-  - 51.49s         : Outro / Transition to Main Portfolio
-*/
+// --- PRECISE AUDIO TIMESTAMP ARRAYS ---
 const OFFSET_SECONDS = 0.0; 
 
-const TIMESTAMPS = [
-  12.85,  // Drop 💥 ("In this life...")
-  19.29,  // Card 2
-  25.73,  // Card 3
-  32.17,  // Card 4
-  38.61,  // Card 5
-  45.05,  // Card 6
-  51.49   // End Montage -> Transition to Portfolio
+// Timestamps for changing slides
+const SLIDE_CHANGE_TIMESTAMPS = [
+  12.26,  // Slide 1
+  16.01,  // Slide 2
+  19.07,  // Slide 3
+  22.14,  // Slide 4
+  25.20,  // Slide 5
+  28.25,  // Slide 6
+  32.02   // End Montage -> Transition to Main Portfolio
+];
+
+// Timestamps for active card pulse animation
+const PULSE_TIMESTAMPS = [
+  13.11, 13.29, 14.25, 15.13, 15.19, 15.25,
+  18.02, 18.19, 19.07, 19.21, 20.03, 21.01,
+  21.07, 22.01, 22.07, 22.13, 23.18, 24.12,
+  25.01, 25.20, 26.06, 26.25, 27.13, 27.19,
+  28.13, 28.18, 28.26, 29.11, 30.00, 30.25
 ];
 
 let currentCardIndex = -1;
 let animFrameId = null;
+let triggeredPulses = new Set(); // Prevents repeating pulse within the same frame
 
 // DOM Elements
 const audio = document.getElementById('redemption-audio');
@@ -196,17 +197,16 @@ function setupEventListeners() {
 // EXACT AUDIO TIME HARD-SYNC ENGINE
 function startAudioSyncEngine() {
   introScreen.style.opacity = '0';
+  triggeredPulses.clear();
   
   setTimeout(() => {
     introScreen.style.display = 'none';
     launchAnimScreen.style.display = 'flex';
     launchAnimScreen.style.opacity = '1';
 
-    // Start Playback
     audio.currentTime = 0;
     audio.play().catch(e => console.warn("Playback error:", e));
 
-    // Continuous high-precision loop
     syncLoop();
   }, 400);
 }
@@ -214,13 +214,13 @@ function startAudioSyncEngine() {
 function syncLoop() {
   const currentTime = audio.currentTime - OFFSET_SECONDS;
 
-  // 1. Thruster launch animation plays during extended sample intro (0s -> 12.85s)
-  if (currentTime < TIMESTAMPS[0]) {
+  // 1. Intro Launch animation (0s -> 12.26s)
+  if (currentTime < SLIDE_CHANGE_TIMESTAMPS[0]) {
     launchAnimScreen.style.display = 'flex';
     montageScreen.style.display = 'none';
   } 
-  // 2. Main Montage Cards Trigger
-  else if (currentTime >= TIMESTAMPS[0] && currentTime < TIMESTAMPS[TIMESTAMPS.length - 1]) {
+  // 2. Active Montage Screen (12.26s -> 32.02s)
+  else if (currentTime >= SLIDE_CHANGE_TIMESTAMPS[0] && currentTime < SLIDE_CHANGE_TIMESTAMPS[SLIDE_CHANGE_TIMESTAMPS.length - 1]) {
     if (launchAnimScreen.style.display !== 'none') {
       launchAnimScreen.style.opacity = '0';
       setTimeout(() => { launchAnimScreen.style.display = 'none'; }, 200);
@@ -228,10 +228,10 @@ function syncLoop() {
       montageScreen.style.opacity = '1';
     }
 
-    // Identify active slide based on current timestamp
+    // A. Check Slide Switches
     let targetIndex = 0;
-    for (let i = 0; i < TIMESTAMPS.length - 1; i++) {
-      if (currentTime >= TIMESTAMPS[i]) {
+    for (let i = 0; i < SLIDE_CHANGE_TIMESTAMPS.length - 1; i++) {
+      if (currentTime >= SLIDE_CHANGE_TIMESTAMPS[i]) {
         targetIndex = i;
       }
     }
@@ -242,9 +242,17 @@ function syncLoop() {
       currentCardIndex = targetIndex;
       showCard(currentCardIndex);
     }
+
+    // B. Check Beat Pulses
+    PULSE_TIMESTAMPS.forEach(pulseTime => {
+      if (Math.abs(currentTime - pulseTime) < 0.08 && !triggeredPulses.has(pulseTime)) {
+        triggeredPulses.add(pulseTime);
+        triggerCardPulse();
+      }
+    });
   } 
-  // 3. Audio reached montage end time -> transition to main portfolio
-  else if (currentTime >= TIMESTAMPS[TIMESTAMPS.length - 1]) {
+  // 3. Audio reached end of montage -> transition to homepage
+  else if (currentTime >= SLIDE_CHANGE_TIMESTAMPS[SLIDE_CHANGE_TIMESTAMPS.length - 1]) {
     endMontageToHomepage();
     return;
   }
@@ -253,14 +261,22 @@ function syncLoop() {
 }
 
 function showCard(index) {
-  document.querySelectorAll('.montage-card').forEach(c => c.classList.remove('active', 'beat-pulse'));
+  document.querySelectorAll('.montage-card').forEach(c => c.classList.remove('active'));
   const card = document.getElementById(`montage-slide-${index}`);
   if (card) {
     card.classList.add('active');
-    card.classList.add('beat-pulse');
-    setTimeout(() => card.classList.remove('beat-pulse'), 300);
   }
   montageCounter.innerText = `BEAT SYNC ACTIVE // ${index + 1}/${appState.awards.length}`;
+}
+
+function triggerCardPulse() {
+  const activeCard = document.querySelector('.montage-card.active');
+  if (activeCard) {
+    activeCard.classList.remove('beat-pulse');
+    // Force DOM reflow to restart animation on consecutive rapid sub-beats
+    void activeCard.offsetWidth; 
+    activeCard.classList.add('beat-pulse');
+  }
 }
 
 function endMontageToHomepage() {
