@@ -3,56 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio System Control Panel</title>
+  <title>Admin Dashboard — Minimal Control</title>
   <style>
-    body { background: #0b0b0e; color: #fff; font-family: sans-serif; padding: 40px; }
-    .admin-card { background: #16161c; border: 1px solid #2a2a35; padding: 25px; border-radius: 12px; max-width: 700px; margin: auto; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-size: 12px; color: #888; margin-bottom: 5px; }
-    input, textarea { width: 100%; padding: 10px; background: #0a0a0d; border: 1px solid #333; color: #fff; border-radius: 6px; }
-    button { background: #00ff66; color: #000; font-weight: bold; padding: 12px; border: none; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
+    body { background: #0b0c10; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; padding: 40px; }
+    .card { background: #12141c; border: 1px solid rgba(255,255,255,0.08); padding: 30px; border-radius: 14px; max-width: 600px; margin: auto; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 13px; color: #9ca3af; margin-bottom: 8px; }
+    input, textarea { width: 100%; padding: 12px; background: #1e2230; border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; }
+    button { background: #3b82f6; color: #fff; border: none; font-weight: 600; padding: 12px 24px; border-radius: 8px; cursor: pointer; width: 100%; }
+    button:hover { background: #2563eb; }
   </style>
 </head>
 <body>
 
-  <div class="admin-card">
-    <h2>Cockpit Data Management System</h2>
-    <p style="font-size: 12px; color: #888; margin-bottom: 20px;">Updates made here sync instantly with your single-page portfolio via local storage.</p>
+  <div class="card">
+    <h2>Portfolio Content Admin</h2>
+    <p style="font-size: 13px; color: #9ca3af; margin-bottom: 24px;">Manage text content instantly without touching HTML code.</p>
 
     <div class="form-group">
-      <label>Profile Headline</label>
-      <input type="text" id="edit-title">
+      <label>Headline Title</label>
+      <input type="text" id="adm-title">
     </div>
 
     <div class="form-group">
-      <label>Biography Summary</label>
-      <textarea id="edit-bio" rows="4"></textarea>
+      <label>Biography</label>
+      <textarea id="adm-bio" rows="4"></textarea>
     </div>
 
     <div class="form-group">
-      <label>Contact Email</label>
-      <input type="text" id="edit-email">
+      <label>Email Address</label>
+      <input type="text" id="adm-email">
     </div>
 
-    <button id="save-btn">SAVE PORTFOLIO DATA</button>
+    <button id="save-btn">Save Changes</button>
   </div>
 
   <script>
-    const data = JSON.parse(localStorage.getItem('portfolio_data')) || {};
+    const data = JSON.parse(localStorage.getItem('clean_portfolio_data')) || {};
     if (data.profile) {
-      document.getElementById('edit-title').value = data.profile.title || '';
-      document.getElementById('edit-bio').value = data.profile.bio || '';
-      document.getElementById('edit-email').value = data.profile.email || '';
+      document.getElementById('adm-title').value = data.profile.title || '';
+      document.getElementById('adm-bio').value = data.profile.bio || '';
+      document.getElementById('adm-email').value = data.profile.email || '';
     }
 
     document.getElementById('save-btn').addEventListener('click', () => {
       data.profile = {
-        title: document.getElementById('edit-title').value,
-        bio: document.getElementById('edit-bio').value,
-        email: document.getElementById('edit-email').value
+        title: document.getElementById('adm-title').value,
+        bio: document.getElementById('adm-bio').value,
+        email: document.getElementById('adm-email').value
       };
-      localStorage.setItem('portfolio_data', JSON.stringify(data));
-      alert('Portfolio Data Successfully Updated!');
+      localStorage.setItem('clean_portfolio_data', JSON.stringify(data));
+      alert('Content successfully updated!');
     });
   </script>
 </body>
