@@ -3,144 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flight Deck // Executive STEM & Academic Portfolio</title>
+  <title>Aviation-Tech Academic & STEM Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Audio Element -->
-  <audio id="redemption-audio" preload="auto">
-    <source src="redemption.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Background Animated Canvas Overlay -->
+  <div class="background-container"></div>
 
-  <!-- Ambient Dynamic Grid Background -->
-  <div class="bg-grid-overlay"></div>
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
+  <!-- HUD Custom Scrollbar Tracker -->
+  <aside class="hud-scroll-tracker">
+    <div class="hud-alt-scale">
+      <div id="alt-indicator" class="alt-indicator">FLT 00</div>
+    </div>
+    <div class="hud-nav-dots">
+      <a href="#cockpit-landing" class="dot active" data-section="cockpit-landing" title="Landing Control"></a>
+      <a href="#about-me" class="dot" data-section="about-me" title="About Me"></a>
+      <a href="#skills" class="dot" data-section="skills" title="Skills & Matrix"></a>
+      <a href="#extracurriculars" class="dot" data-section="extracurriculars" title="Extra-Curriculars"></a>
+      <a href="#projects" class="dot" data-section="projects" title="Projects"></a>
+      <a href="#academics" class="dot" data-section="academics" title="Report Cards"></a>
+      <a href="#achievements" class="dot" data-section="achievements" title="Achievements"></a>
+      <a href="#certificates" class="dot" data-section="certificates" title="Certificates"></a>
+      <a href="#contact" class="dot" data-section="contact" title="Contact"></a>
+    </div>
+  </aside>
 
-  <!-- 1. INTRO / START SCREEN -->
-  <div id="intro-screen" class="fullscreen-overlay">
-    <div class="intro-glass-card">
-      <div class="status-pill"><span class="pulse-dot"></span> AUDIO SYNC ENGINE READY</div>
-      <h1 class="hud-title">FLIGHT DECK</h1>
-      <p class="hud-subtitle">ACADEMIC & STEM ACHIEVEMENT MONTAGE</p>
-      
-      <div class="btn-group">
-        <button id="takeoff-btn" class="apple-btn glow-btn">
-          <span>INITIALIZE SEQUENCE</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  <!-- Flight HUD Control Drawer -->
+  <nav class="flight-hud-menu">
+    <div class="hud-header">SYSTEM ROUTING</div>
+    <ul>
+      <li><a href="#about-me">01 // ABOUT</a></li>
+      <li><a href="#skills">02 // SKILLS</a></li>
+      <li><a href="#extracurriculars">03 // INITIATIVES</a></li>
+      <li><a href="#projects">04 // PROJECTS</a></li>
+      <li><a href="#academics">05 // ACADEMICS</a></li>
+      <li><a href="#achievements">06 // HONORS</a></li>
+      <li><a href="#certificates">07 // CREDENTIALS</a></li>
+      <li><a href="#contact">08 // CONTACT</a></li>
+    </ul>
+    <a href="admin.html" target="_blank" class="admin-link-btn">OPEN ADMIN DASHBOARD</a>
+  </nav>
+
+  <!-- Main Scroll Container -->
+  <div class="viewport-wrapper">
+
+    <!-- SECTION 1: COCKPIT LANDING INTERACTIVE INTRO -->
+    <section id="cockpit-landing" class="portfolio-section cockpit-view">
+      <div class="cockpit-frame">
+        <div class="hud-overlay-text">
+          <span class="hud-tag">FLIGHT INSTRUMENT INTERACTION</span>
+          <h1>RUNWAY APPROACH TACTICAL LANDING</h1>
+          <p>Deploy landing gear and set throttle levels to zero to complete touchdown sequence.</p>
+        </div>
+
+        <div class="cockpit-controls">
+          <div class="control-box">
+            <span class="control-label">LANDING GEAR SWITCH</span>
+            <label class="switch">
+              <input class="chk" type="checkbox" id="gear-switch">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="control-box">
+            <span class="control-label">THROTTLE COMMAND</span>
+            <div class="slider-wrapper">
+              <input type="range" class="slider-input slider-gradient-1" id="throttle-slider" min="0" max="100" value="80">
+            </div>
+          </div>
+        </div>
+
+        <button id="land-plane-btn" class="animated-button">
+          <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+          </svg>
+          <span class="text">EXECUTE TOUCHDOWN</span>
+          <span class="circle"></span>
+          <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+          </svg>
         </button>
-        <button id="skip-intro-btn" class="apple-btn secondary-btn">Direct to Portfolio</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- 2. THRUSTER LAUNCH SCREEN (EXTENDED INTRO 0s -> 12.26s) -->
-  <div id="launch-animation-screen" class="fullscreen-overlay" style="display: none;">
-    <div class="thruster-loader">
-      <div class="hud-ring">
-        <div class="ring-spinner"></div>
-        <div class="hud-core-icon">⚡</div>
+        <!-- Airpod Fallback Container -->
+        <div id="airpod-fallback" class="airpod-container hidden">
+          <p class="fallback-note">Bypassed HUD System — Standard Access Node Activated</p>
+          <div class="card" id="airpod-case">
+            <div class="lc cavity"></div>
+            <div class="lc line"></div>
+            <div class="led"></div>
+            <div class="text">AIRPODS ACCESS</div>
+          </div>
+        </div>
       </div>
-      <div class="launch-text-wrap">
-        <h2 class="launch-status">WARPING TO FREQUENCY</h2>
-        <p class="launch-sub">SYNCHRONIZING SUB-BEAT DROP // 12.26s</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. BEAT-SYNC MONTAGE SCREEN (12.26s -> 32.02s) -->
-  <div id="montage-screen" class="fullscreen-overlay" style="display: none;">
-    <div class="hud-top-bar">
-      <div class="hud-brand">FLIGHT DECK <span class="version-tag">v2.4</span></div>
-      <div id="montage-counter" class="hud-status-badge">BEAT SYNC ACTIVE // 01/06</div>
-      <button id="exit-montage-btn" class="apple-btn micro-btn secondary-btn">Exit Experience</button>
-    </div>
-
-    <div class="montage-stage">
-      <div id="montage-container" class="cards-wrapper">
-        <!-- Dynamic Cards Injected via script.js -->
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. MAIN HOMEPAGE CONTENT -->
-  <main id="main-content">
-    <header class="app-nav">
-      <div class="nav-logo">FLIGHT DECK</div>
-      <div class="nav-actions">
-        <button id="open-admin-btn" class="apple-btn micro-btn secondary-btn">Manage Records</button>
-      </div>
-    </header>
-
-    <section class="profile-hero">
-      <div class="hero-badge">ACADEMIC & STEM PROFILE</div>
-      <h1 id="about-name-display">Academic Achiever & STEM Researcher</h1>
-      <p id="about-bio-display">Dedicated student focusing on secondary-level mathematics, physics wave dynamics, and biological conservation.</p>
     </section>
 
-    <!-- Honors Section -->
-    <section class="content-section">
-      <div class="section-title-wrap">
-        <div>
-          <span class="section-tag">DISTINCTIONS</span>
-          <h2 class="section-title">Institutional Honors</h2>
-        </div>
+    <!-- SECTION 2: ABOUT ME -->
+    <section id="about-me" class="portfolio-section">
+      <div class="section-card">
+        <span class="badge">BIOGRAPHY & CORE PROFILE</span>
+        <h2 id="about-title">Academic Achiever & STEM Researcher</h2>
+        <p id="about-bio" class="section-desc">
+          Dedicated researcher specializing in secondary-level physics, wave mechanics, and environmental sustainability projects. Focused on mathematical modeling, system design, and applied science innovation.
+        </p>
       </div>
-      <div id="awards-6-container" class="grid-layout"></div>
     </section>
 
-    <!-- STEM Research Section -->
-    <section class="content-section">
-      <div class="section-title-wrap">
-        <div>
-          <span class="section-tag">RESEARCH & INITIATIVES</span>
-          <h2 class="section-title">STEM Projects</h2>
+    <!-- SECTION 3: SKILLS -->
+    <section id="skills" class="portfolio-section">
+      <div class="section-card">
+        <span class="badge">TECHNICAL TOOLKIT</span>
+        <h2>Skills & Domain Tools</h2>
+        <div class="skills-matrix" id="skills-matrix-container">
+          <!-- Dynamic Skill Elements Injected via Script -->
         </div>
       </div>
-      <div id="stem-projects-container" class="grid-layout"></div>
     </section>
-  </main>
 
-  <!-- 5. ADMIN MODAL -->
-  <div id="admin-modal" class="modal-overlay">
-    <div class="admin-card">
-      <div class="admin-header">
-        <h2>Portfolio Control Center</h2>
-        <button id="close-admin-btn" class="close-btn">&times;</button>
-      </div>
-
-      <form id="admin-form">
-        <div class="form-group">
-          <label>Profile Headline</label>
-          <input type="text" id="input-profile-title" required>
+    <!-- SECTION 4: EXTRA-CURRICULARS (WATER FILTER ANIMATION) -->
+    <section id="extracurriculars" class="portfolio-section">
+      <div class="section-card water-filter-card">
+        <span class="badge">ENVIRONMENTAL & CONSERVATION INITIATIVES</span>
+        <h2>Extra-Curricular Projects</h2>
+        
+        <!-- Water Filter Graphic Canvas Container -->
+        <div class="water-filter-stage">
+          <div class="filter-chamber">
+            <div class="water-droplet murky" id="water-drop"></div>
+            <div class="filter-layer layer-sand">SAND & CHARCOAL</div>
+            <div class="filter-layer layer-gravel">FINE GRAVEL</div>
+            <div class="filter-layer layer-membrane">MEMBRANE FILTER</div>
+            <div class="clean-reservoir" id="clean-reservoir">PURIFIED ECO-SYSTEM OUTPUT</div>
+          </div>
+          <button id="trigger-filter-btn" class="animated-button">
+            <span class="text">RUN FILTRATION PROCESS</span>
+            <span class="circle"></span>
+          </button>
         </div>
-        <div class="form-group">
-          <label>Biography Summary</label>
-          <textarea id="input-profile-bio" rows="3" required></textarea>
+
+        <div class="initiative-content" id="extracurriculars-list">
+          <!-- Dynamic Content -->
         </div>
-        <button type="submit" class="apple-btn full-btn">Update Profile</button>
-      </form>
-
-      <hr class="divider">
-
-      <h3>Manage Achievements</h3>
-      <div id="admin-awards-list" class="admin-list"></div>
-
-      <div class="add-award-box">
-        <h4>Add Distinction</h4>
-        <div class="form-group"><input type="text" id="input-award-title" placeholder="Title"></div>
-        <div class="form-group"><input type="text" id="input-award-tag" placeholder="Category Tag (e.g. MATHEMATICS)"></div>
-        <div class="form-group"><textarea id="input-award-desc" placeholder="Description" rows="2"></textarea></div>
-        <div class="form-group"><input type="text" id="input-award-img" placeholder="Image URL"></div>
-        <button type="button" id="add-award-btn" class="apple-btn full-btn">Add Achievement</button>
       </div>
+    </section>
 
-      <button type="button" id="reset-default-btn" class="danger-btn">Reset Defaults</button>
-    </div>
+    <!-- SECTION 5: PROJECTS (UNSCREWABLE ACCESS PANEL) -->
+    <section id="projects" class="portfolio-section">
+      <div class="panel-container" id="projects-panel">
+        <div class="panel-cover" id="panel-cover">
+          <div class="screw screw-tl" data-screw="1"></div>
+          <div class="screw screw-tr" data-screw="2"></div>
+          <div class="screw screw-bl" data-screw="3"></div>
+          <div class="screw screw-br" data-screw="4"></div>
+          <div class="cover-text">
+            <h3>SECURED TECHNICAL PROJECTS PANEL</h3>
+            <p>CLICK ALL 4 SCREWS TO UNBOLT COVER</p>
+          </div>
+        </div>
+        <div class="panel-contents" id="projects-list">
+          <!-- Hidden Projects revealed after unscrewing -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: REPORT CARDS / ACADEMICS (CREDIT CARD WALLET) -->
+    <section id="academics" class="portfolio-section">
+      <div class="section-card">
+        <span class="badge">ACADEMIC RECORDS</span>
+        <h2>Interactive Report Card Wallet</h2>
+        <div class="wallet-container" id="wallet">
+          <div class="wallet-cover" id="wallet-toggle">
+            <span>EXPAND ACADEMIC WALLET</span>
+          </div>
+          <div class="wallet-cards" id="wallet-cards-container">
+            <!-- Dynamic Credit-Card Style Report Cards Injected -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: ACHIEVEMENTS / AWARDS (WITH IMPACT METRICS) -->
+    <section id="achievements" class="portfolio-section">
+      <div class="section-card">
+        <span class="badge">HONORS & RECOGNITION</span>
+        <h2>Distinctions with Impact Assessment</h2>
+        <div class="achievements-grid" id="achievements-list">
+          <!-- Dynamic Content -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: CERTIFICATES -->
+    <section id="certificates" class="portfolio-section">
+      <div class="section-card">
+        <span class="badge">VERIFIED CREDENTIALS</span>
+        <h2>Certificates & Accreditation</h2>
+        <div class="certificates-grid" id="certificates-list">
+          <!-- Dynamic Content -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: CONTACT ME & TOP RETURN BUTTON -->
+    <section id="contact" class="portfolio-section">
+      <div class="section-card text-center">
+        <span class="badge">COMMUNICATION DIRECTORY</span>
+        <h2>Get In Touch</h2>
+        <p id="contact-email">contact@portfolio.domain</p>
+        
+        <div class="styled-wrapper" style="margin-top: 30px;">
+          <button class="button" id="back-to-top-btn" title="Back to Flight Deck Top">
+            <div class="button-box">
+              <span class="button-elem">
+                <svg viewBox="0 0 24 24" class="arrow-icon"><path fill="#ffffff" d="M12 4l-8 8 1.41 1.41L11 7.83V20h2V7.83l5.59 5.59L20 12z"></path></svg>
+              </span>
+              <span class="button-elem">
+                <svg viewBox="0 0 24 24" class="arrow-icon"><path fill="#ffffff" d="M12 4l-8 8 1.41 1.41L11 7.83V20h2V7.83l5.59 5.59L20 12z"></path></svg>
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <script src="script.js"></script>
