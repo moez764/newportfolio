@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio System Control Panel</title>
+  <style>
+    body { background: #0b0b0e; color: #fff; font-family: sans-serif; padding: 40px; }
+    .admin-card { background: #16161c; border: 1px solid #2a2a35; padding: 25px; border-radius: 12px; max-width: 700px; margin: auto; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-size: 12px; color: #888; margin-bottom: 5px; }
+    input, textarea { width: 100%; padding: 10px; background: #0a0a0d; border: 1px solid #333; color: #fff; border-radius: 6px; }
+    button { background: #00ff66; color: #000; font-weight: bold; padding: 12px; border: none; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-card">
+    <h2>Cockpit Data Management System</h2>
+    <p style="font-size: 12px; color: #888; margin-bottom: 20px;">Updates made here sync instantly with your single-page portfolio via local storage.</p>
+
+    <div class="form-group">
+      <label>Profile Headline</label>
+      <input type="text" id="edit-title">
+    </div>
+
+    <div class="form-group">
+      <label>Biography Summary</label>
+      <textarea id="edit-bio" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Contact Email</label>
+      <input type="text" id="edit-email">
+    </div>
+
+    <button id="save-btn">SAVE PORTFOLIO DATA</button>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('portfolio_data')) || {};
+    if (data.profile) {
+      document.getElementById('edit-title').value = data.profile.title || '';
+      document.getElementById('edit-bio').value = data.profile.bio || '';
+      document.getElementById('edit-email').value = data.profile.email || '';
+    }
+
+    document.getElementById('save-btn').addEventListener('click', () => {
+      data.profile = {
+        title: document.getElementById('edit-title').value,
+        bio: document.getElementById('edit-bio').value,
+        email: document.getElementById('edit-email').value
+      };
+      localStorage.setItem('portfolio_data', JSON.stringify(data));
+      alert('Portfolio Data Successfully Updated!');
+    });
+  </script>
+</body>
+</html>
