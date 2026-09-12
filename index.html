@@ -140,4 +140,146 @@
 
   <script src="script.js"></script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Clean & Minimal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">PORTFOLIO</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#projects">Projects</a>
+      </nav>
+      <a href="admin.html" class="nav-admin-btn">Admin Panel</a>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-badge">✦ STEM & COMPUTER SCIENCE</div>
+      <h1 class="hero-title" id="dyn-name">High-Achieving Student & Tech Explorer</h1>
+      <p class="hero-subtitle" id="dyn-headline">
+        Driven by curiosity, discipline, and a commitment to combining creativity, technical mastery, and leadership.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="content-section">
+      <div class="section-header">
+        <span class="subtext">BACKGROUND</span>
+        <h2>About Me</h2>
+      </div>
+      <div class="glass-card bio-card">
+        <p id="dyn-bio">
+          I am passionate about learning, innovation, and academic excellence. Whether analyzing physics wave mechanics, practicing advanced mathematical reasoning, or building web platforms, I strive to turn complex concepts into functional, real-world solutions.
+        </p>
+      </div>
+    </section>
+
+    <!-- Interactive 3D Journey Flip-Book -->
+    <section id="journey" class="content-section">
+      <div class="section-header">
+        <span class="subtext">INTERACTIVE EXPERIENCE</span>
+        <h2>My Journey & Values</h2>
+      </div>
+      
+      <div class="flipbook-wrapper">
+        <div class="flipbook" id="flipbook">
+          <!-- Page 1 -->
+          <div class="page active" data-page="1">
+            <span class="page-num">01 / 03</span>
+            <h3>1. Responsibility</h3>
+            <p>More than participation — leadership through action. Taking accountability when it matters and raising standards across teams.</p>
+          </div>
+          <!-- Page 2 -->
+          <div class="page" data-page="2">
+            <span class="page-num">02 / 03</span>
+            <h3>2. Empathy</h3>
+            <p>Listening actively to build trust. True leadership means ensuring every individual feels valued and heard.</p>
+          </div>
+          <!-- Page 3 -->
+          <div class="page" data-page="3">
+            <span class="page-num">03 / 03</span>
+            <h3>3. Service</h3>
+            <p>Giving back to elevate those around me. Leadership is not about being in charge, but taking care of those in your charge.</p>
+          </div>
+        </div>
+        <div class="flipbook-controls">
+          <button id="prev-page" class="btn-sm">← Prev</button>
+          <button id="next-page" class="btn-sm">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="content-section">
+      <div class="section-header">
+        <span class="subtext">COMPETENCIES</span>
+        <h2>Skills & Mastery</h2>
+      </div>
+      
+      <div class="skills-grid" id="skills-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="content-section">
+      <div class="section-header">
+        <span class="subtext">CREDENTIALS</span>
+        <h2>Technical Certifications</h2>
+      </div>
+      <div class="cards-grid" id="cert-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Projects Dashboard -->
+    <section id="projects" class="content-section">
+      <div class="section-header">
+        <span class="subtext">PORTFOLIO</span>
+        <h2>Featured Projects</h2>
+      </div>
+      <div class="cards-grid" id="projects-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+      <div class="glass-card contact-card">
+        <h2>Let's Connect</h2>
+        <p>Open for collaborative research, technical projects, and academic inquiries.</p>
+        <a id="dyn-email-link" href="#" class="email-btn">student@westminster.edu</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Academic Portfolio — Clean UI Architecture</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
