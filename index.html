@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flight Deck | Portfolio</title>
-  <!-- Clean typography: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,14 +15,12 @@
 
   <!-- INTRO SCREEN -->
   <div id="intro-screen">
-    <div class="runway-lights" id="runway"></div>
     <div class="intro-content">
       <div class="launch-badge">FLIGHT PROFILE 2026</div>
       <h1 class="hero-title">Aviation & Academic Portfolio</h1>
       
-      <!-- Apple-style Glassmorphism Button -->
-      <button class="apple-takeoff-btn" onclick="initTakeoffSequence()">
-        <span class="btn-glow"></span>
+      <!-- Apple-style Button -->
+      <button class="apple-takeoff-btn" id="takeoff-btn">
         <svg class="plane-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
         </svg>
@@ -41,7 +38,7 @@
     </div>
   </div>
 
-  <!-- MONTAGE SCREEN WITH PHOTO PLACEHOLDERS -->
+  <!-- MONTAGE SCREEN -->
   <div id="montage-screen">
     <div class="montage-card" id="slide-0">
       <div class="slide-media">
@@ -167,7 +164,7 @@
     </div>
   </div>
 
-  <audio id="redemption-audio" src="redemption.mp3" preload="auto"></audio>
+  <audio id="redemption-audio" src="redemption.mp3" preload="auto" crossorigin="anonymous"></audio>
 
   <script src="script.js"></script>
 </body>
