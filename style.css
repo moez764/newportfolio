@@ -1,18 +1,21 @@
 :root {
-  --bg-dark: #050811;
-  --panel-bg: rgba(13, 20, 36, 0.85);
+  --bg-dark: #07090e;
+  --panel-bg: rgba(18, 24, 38, 0.7);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --accent-blue: #00d2ff;
   --accent-cyan: #00f0ff;
-  --accent-glow: rgba(0, 240, 255, 0.5);
-  --text-main: #f3f4f6;
-  --text-muted: #8b9bb4;
-  --border-color: rgba(0, 240, 255, 0.25);
+  --accent-glow: rgba(0, 240, 255, 0.35);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --apple-btn-bg: rgba(255, 255, 255, 0.08);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', -apple-system, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -21,70 +24,157 @@ body {
   overflow-x: hidden;
 }
 
-/* Background HUD Grid Overlay */
+/* Background HUD Grid */
 .hud-grid {
   position: fixed;
   inset: 0;
   background-image: 
-    radial-gradient(circle at center, transparent 30%, #050811 90%),
-    linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
-  background-size: 100% 100%, 50px 50px, 50px 50px;
+    radial-gradient(circle at center, transparent 30%, #07090e 95%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 60px 60px, 60px 60px;
   pointer-events: none;
   z-index: 1;
-}
-
-/* Beat Pulse Visualizer Ring */
-.hud-pulse-ring {
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border: 2px solid var(--accent-cyan);
-  border-radius: 50%;
-  box-shadow: 0 0 30px var(--accent-glow);
-  opacity: 0.3;
-  transform: scale(1);
-  transition: transform 0.05s linear, opacity 0.05s linear;
 }
 
 /* === INTRO SCREEN === */
 #intro-screen {
   position: fixed;
   inset: 0;
-  background: #050811;
+  background: radial-gradient(circle at center, #0e1726 0%, #05070c 100%);
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  max-width: 650px;
+  padding: 0 20px;
 }
 
-.takeoff-btn {
-  position: relative;
-  z-index: 2;
-  background: rgba(0, 240, 255, 0.05);
-  border: 2px solid var(--accent-cyan);
+.launch-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
   color: var(--accent-cyan);
-  padding: 22px 50px;
-  font-size: 1.5rem;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 3rem;
   font-weight: 800;
-  letter-spacing: 5px;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 36px;
+  background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* === APPLE STYLE BUTTON === */
+.apple-takeoff-btn {
+  position: relative;
+  background: var(--apple-btn-bg);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #ffffff;
+  padding: 16px 36px;
+  border-radius: 980px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 0 30px var(--accent-glow);
-  transition: all 0.3s ease;
-  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-.takeoff-btn:hover {
+.apple-takeoff-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(0, 240, 255, 0.5);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 240, 255, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.apple-takeoff-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.plane-icon {
+  transition: transform 0.3s ease;
+}
+
+.apple-takeoff-btn:hover .plane-icon {
+  transform: translateX(3px) translateY(-3px);
+}
+
+/* === INTRO WARP SPEED ANIMATION === */
+#launch-animation-screen {
+  position: fixed;
+  inset: 0;
+  background: #03050a;
+  z-index: 95;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.warp-speed-lines {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 10%, #03050a 80%),
+              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 240, 255, 0.05) 3px, transparent 4px);
+  animation: warpDrive 0.2s linear infinite;
+}
+
+@keyframes warpDrive {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.launch-hud-status {
+  position: relative;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
   background: var(--accent-cyan);
-  color: var(--bg-dark);
-  box-shadow: 0 0 50px var(--accent-cyan);
-  transform: scale(1.06);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-cyan);
+  animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
 }
 
 /* === MONTAGE SCREEN === */
@@ -96,54 +186,85 @@ body {
   display: none;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  padding: 20px;
 }
 
 .montage-card {
   position: absolute;
-  width: 85%;
-  max-width: 850px;
-  padding: 50px;
+  width: 90%;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
   background: var(--panel-bg);
-  border: 1px solid var(--accent-cyan);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 40px var(--accent-glow);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
   opacity: 0;
-  transform: scale(0.85);
-  transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
-  text-align: left;
+  transform: scale(0.92) translateY(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .montage-card.active {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) translateY(0);
 }
 
 .montage-card.beat-flash {
-  box-shadow: 0 0 80px var(--accent-cyan);
-  border-color: #ffffff;
-  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 50px var(--accent-glow);
+}
+
+.slide-media {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+}
+
+.placeholder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 6s ease;
+}
+
+.montage-card.active .placeholder-img {
+  transform: scale(1.08);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 60%, rgba(18, 24, 38, 0.95) 100%);
+}
+
+.slide-details {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hud-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
   color: var(--accent-cyan);
-  font-family: monospace;
-  font-size: 0.95rem;
-  letter-spacing: 3px;
-  margin-bottom: 15px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
 }
 
 .montage-title {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 12px var(--accent-glow);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
 }
 
 .montage-desc {
   color: var(--text-muted);
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1.6;
 }
 
@@ -151,71 +272,136 @@ body {
 #main-content {
   position: relative;
   z-index: 10;
-  max-width: 1100px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 80px 20px;
+  padding: 80px 24px;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 25px;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 24px;
   margin-bottom: 60px;
 }
 
-.sys-status {
-  font-family: monospace;
+.system-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
   color: var(--accent-cyan);
   letter-spacing: 2px;
 }
 
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.flight-metrics {
+  display: flex;
+  gap: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.flight-metrics .label {
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.flight-metrics .val.active {
+  color: var(--accent-cyan);
+}
+
 .section-title {
-  font-size: 1.8rem;
-  letter-spacing: 3px;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  border-left: 4px solid var(--accent-cyan);
-  padding-left: 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--accent-cyan);
+  border-radius: 2px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-bottom: 70px;
 }
 
 .card {
   background: var(--panel-bg);
-  border: 1px solid var(--border-color);
-  padding: 30px;
-  position: relative;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: var(--accent-cyan);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card-media {
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .card-media img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 24px;
 }
 
 .card-badge {
-  font-family: monospace;
-  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
   color: var(--accent-cyan);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .card h3 {
-  font-size: 1.35rem;
-  margin-bottom: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .card p {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .montage-card {
+    grid-template-columns: 1fr;
+  }
+  .slide-media {
+    height: 220px;
+  }
 }
